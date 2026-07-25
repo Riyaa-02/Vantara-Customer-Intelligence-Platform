@@ -1,0 +1,31 @@
+
+CUSTOMER CHURN EXPLANATION
+==========================
+
+Predicted Churn Risk:
+99.96%
+
+Why this customer is flagged:
+
+The model identified this customer as having a high
+probability of churn based on their recent behaviour
+and customer profile.
+
+The strongest factors increasing the churn prediction are:
+
+- Engagement_Score <= -0.53
+- Country_Austria <= 0.00
+- Recency > 0.52
+
+Recommended Business Action:
+
+Prioritize this customer for a retention campaign.
+Possible actions include personalized offers,
+targeted communication, loyalty rewards, or
+proactive customer support.
+
+Important Note:
+
+This explanation describes factors influencing the
+model's prediction. It does not prove that these
+factors directly cause customer churn.

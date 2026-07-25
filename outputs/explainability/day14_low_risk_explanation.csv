@@ -1,0 +1,55 @@
+Feature,Feature_Value,SHAP_Value,Absolute_SHAP
+Frequency,12.494753,-2.3077174533014153,2.3077174533014153
+Engagement_Score,2.4159193,-1.8180493764712244,1.8180493764712244
+Monetary_Total,4.2849255,-0.6372098922491927,0.6372098922491927
+Total_Quantity,2.5492983,0.4115840053986026,0.4115840053986026
+Customer_Lifespan_Days,1.3236609,-0.36624053743409035,0.36624053743409035
+Average_Purchase_Gap,-0.7069123,-0.21258828649345715,0.21258828649345715
+Recency,-0.4249083,-0.19266749379831147,0.19266749379831147
+Average_Order_Value,0.073137134,-0.047834692976733616,0.047834692976733616
+Return_Rate,-0.23228145,-0.04050844553468428,0.04050844553468428
+Country_United Kingdom,1.0,0.02545045580714941,0.02545045580714941
+Predicted_CLV,0.08454571,0.025321951444047662,0.025321951444047662
+Unique_Products,0.34955266,-0.02080099003096046,0.02080099003096046
+Country_Netherlands,0.0,-0.012577612400054932,0.012577612400054932
+Average_Basket_Size,-0.11095923,0.009788637214604155,0.009788637214604155
+Country_Germany,0.0,0.0014623162150382996,0.0014623162150382996
+Country_France,0.0,0.001428685449063778,0.001428685449063778
+Country_Austria,0.0,0.0008660178445279598,0.0008660178445279598
+Monetary_Average,0.015409233,4.5576979100730476e-05,4.5576979100730476e-05
+Price_Sensitivity,-0.030436706,4.5106915667626966e-05,4.5106915667626966e-05
+Country_Spain,0.0,-2.338519552722573e-05,2.338519552722573e-05
+Country_Nigeria,0.0,0.0,0.0
+Country_Norway,0.0,0.0,0.0
+Country_Poland,0.0,0.0,0.0
+Country_Portugal,0.0,0.0,0.0
+Country_RSA,0.0,0.0,0.0
+Country_Saudi Arabia,0.0,0.0,0.0
+Country_Bahrain,0.0,0.0,0.0
+Country_Malta,0.0,0.0,0.0
+Country_Sweden,0.0,0.0,0.0
+Country_Switzerland,0.0,0.0,0.0
+Country_Thailand,0.0,0.0,0.0
+Country_USA,0.0,0.0,0.0
+Country_United Arab Emirates,0.0,0.0,0.0
+Country_Unspecified,0.0,0.0,0.0
+Country_Singapore,0.0,0.0,0.0
+Country_Lebanon,0.0,0.0,0.0
+Country_Lithuania,0.0,0.0,0.0
+Country_Belgium,0.0,0.0,0.0
+Country_Brazil,0.0,0.0,0.0
+Country_Canada,0.0,0.0,0.0
+Country_Channel Islands,0.0,0.0,0.0
+Country_Cyprus,0.0,0.0,0.0
+Country_Czech Republic,0.0,0.0,0.0
+Country_Denmark,0.0,0.0,0.0
+Country_EIRE,0.0,0.0,0.0
+Country_European Community,0.0,0.0,0.0
+Country_Finland,0.0,0.0,0.0
+Country_Greece,0.0,0.0,0.0
+Country_Iceland,0.0,0.0,0.0
+Country_Israel,0.0,0.0,0.0
+Country_Italy,0.0,0.0,0.0
+Country_Japan,0.0,0.0,0.0
+Country_Korea,0.0,0.0,0.0
+Country_West Indies,0.0,0.0,0.0

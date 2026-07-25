@@ -1,0 +1,12 @@
+Check,Status,Details
+Required Schema,PASS,All required columns are present.
+Dataset Not Empty,PASS,4996 customer records found.
+Missing Values,PASS,No missing values found.
+Unique Customer IDs,PASS,All customer IDs are unique.
+Churn Target,PASS,"Valid target values: [0, 1]"
+Infinite Values,PASS,No infinite numeric values found.
+Recency Sanity,PASS,All values are within the expected range.
+Frequency Sanity,PASS,All values are within the expected range.
+Customer_Lifespan_Days Sanity,PASS,All values are within the expected range.
+Unique_Products Sanity,PASS,All values are within the expected range.
+Country Values,PASS,No blank country values found.

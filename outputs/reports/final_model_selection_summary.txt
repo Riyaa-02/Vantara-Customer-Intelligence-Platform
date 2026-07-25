@@ -1,0 +1,51 @@
+
+VANTARA CUSTOMER INTELLIGENCE PLATFORM
+FINAL CHURN MODEL SELECTION
+======================================
+
+Total Churn Models Compared:
+7
+
+Recommended Production Model:
+ANN
+
+Production Model Test Metrics:
+Accuracy  : 0.7653
+Precision : 0.8045
+Recall    : 0.8560
+F1 Score  : 0.8295
+ROC-AUC   : 0.8094
+
+
+BEST MODELS BY METRIC
+---------------------
+
+Best Accuracy:
+ANN
+Accuracy: 0.7653
+
+Best Precision:
+Logistic Regression
+Precision: 0.8409
+
+Best Recall:
+ANN
+Recall: 0.8560
+
+Best ROC-AUC:
+ANN
+ROC-AUC: 0.8094
+
+
+FINAL DECISION
+--------------
+
+The ANN is selected as the recommended production churn
+classification model because it achieved the strongest
+overall test performance, including the highest F1 Score,
+Accuracy, Recall, and ROC-AUC among the evaluated models.
+
+The final production model selection is based on held-out
+test-set performance.
+
+No models were retrained during this consolidation step.

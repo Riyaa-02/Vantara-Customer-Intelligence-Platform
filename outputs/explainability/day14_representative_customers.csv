@@ -1,0 +1,4 @@
+Customer_Type,Test_Row_Index,Churn_Probability
+Low_Risk,292,0.012203125
+High_Risk,565,0.9996183
+Borderline,498,0.49965405

@@ -1,0 +1,16 @@
+Feature,VIF,Interpretation
+Recency,inf,Perfect Multicollinearity
+Frequency,inf,Perfect Multicollinearity
+Monetary_Total,inf,Perfect Multicollinearity
+Historical_Revenue,inf,Perfect Multicollinearity
+Engagement_Score,inf,Perfect Multicollinearity
+Total_Quantity,6.076720005168013,Moderate Multicollinearity
+Predicted_CLV,6.0737546163219855,Moderate Multicollinearity
+Monetary_Average,5.968719894933772,Moderate Multicollinearity
+Average_Order_Value,3.5829160094081134,Acceptable
+Customer_Lifespan_Days,2.665238383187505,Acceptable
+Unique_Products,2.324215579689969,Acceptable
+Average_Basket_Size,2.0828708576655246,Acceptable
+Average_Purchase_Gap,1.4739792644743237,Acceptable
+Return_Rate,1.1799639263409154,Acceptable
+Price_Sensitivity,1.0104295092781113,Acceptable

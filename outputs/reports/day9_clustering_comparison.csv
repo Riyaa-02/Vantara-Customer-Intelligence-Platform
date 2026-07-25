@@ -1,0 +1,3 @@
+Model,Clusters,Silhouette_Score,Davies_Bouldin_Score
+K-Means,7,0.29541270337334363,1.0335666819987634
+Gaussian Mixture Model,7,0.07514107618813869,3.154535611751268

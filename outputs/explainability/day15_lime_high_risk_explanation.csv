@@ -1,0 +1,11 @@
+Feature_Condition,LIME_Weight
+Engagement_Score <= -0.53,0.23346827184558328
+Country_Austria <= 0.00,0.19982874222488747
+Recency > 0.52,0.15313094388493684
+Average_Order_Value <= -0.24,0.12845922962709752
+Predicted_CLV <= -0.14,-0.1256204601759258
+Country_Channel Islands <= 0.00,-0.12264210155245059
+Country_Unspecified <= 0.00,0.11749617766405285
+Return_Rate > -0.10,0.0972604831528805
+Country_Greece <= 0.00,0.09482723289443401
+Country_United Arab Emirates <= 0.00,-0.08520576514399489

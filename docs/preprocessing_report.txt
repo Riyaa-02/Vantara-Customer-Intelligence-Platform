@@ -1,0 +1,56 @@
+
+==============================================================
+VANTARA CUSTOMER INTELLIGENCE PLATFORM
+
+PREPROCESSING REPORT
+==============================================================
+
+Original Customers
+------------------
+4,996
+
+Training Set
+------------
+3,497
+
+Validation Set
+--------------
+749
+
+Testing Set
+-----------
+750
+
+Total Features
+--------------
+54
+
+Target
+------
+Churn
+
+Class Distribution
+------------------
+Active Customers : 1667
+
+Churned Customers : 3329
+
+Active Percentage : 33.37%
+
+Churn Percentage : 66.63%
+
+Preprocessing Steps
+-------------------
+1. Removed duplicate feature (Historical_Revenue)
+
+2. Filled missing numeric values using median
+
+3. Filled missing categorical values using mode
+
+4. One-Hot Encoded Country
+
+5. Standardized numerical variables
+
+6. Stratified Train / Validation / Test split
+
+Dataset Ready for Machine Learning

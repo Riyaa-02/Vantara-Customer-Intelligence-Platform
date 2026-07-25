@@ -1,0 +1,10 @@
+{
+    "Total_Customers": 4996,
+    "Average_Predicted_CLV": 27325.98,
+    "Average_Churn_Probability": 0.4088,
+    "High_Risk_Customers": 77,
+    "Medium_Risk_Customers": 3540,
+    "Low_Risk_Customers": 1379,
+    "High_Value_Customers": 1666,
+    "Critical_Priority_Customers": 359
+}

@@ -1,0 +1,55 @@
+Feature,Mean_Absolute_SHAP
+Engagement_Score,0.5124738399650092
+Recency,0.3100410975690083
+Customer_Lifespan_Days,0.22538487474310817
+Average_Purchase_Gap,0.16182342913707626
+Frequency,0.15367099821727326
+Average_Order_Value,0.10084243672901501
+Return_Rate,0.09975268308255573
+Predicted_CLV,0.06857357294239153
+Unique_Products,0.05003581289832215
+Average_Basket_Size,0.041638493297984365
+Monetary_Total,0.03404504283873345
+Country_United Kingdom,0.02781758122753624
+Total_Quantity,0.024115900998755862
+Country_Germany,0.010001111005549809
+Country_Netherlands,0.006549705813406041
+Price_Sensitivity,0.006300395814458659
+Country_Unspecified,0.005758680644941826
+Monetary_Average,0.004843675468552385
+Country_Norway,0.0048328975056608535
+Country_Switzerland,0.003989210654593383
+Country_Canada,0.0026792414279809855
+Country_Thailand,0.002072447307935605
+Country_Channel Islands,0.0020030088939878626
+Country_Portugal,0.0017460964786087663
+Country_France,0.0016806721748835103
+Country_Italy,0.001627382348519556
+Country_Cyprus,0.0016250590113030434
+Country_Austria,0.001401342882814545
+Country_Spain,0.0011263446321924367
+Country_Belgium,0.00044451692076959257
+Country_Brazil,0.0003722352933546063
+Country_European Community,0.00012098497772967675
+Country_USA,0.0
+Country_Sweden,0.0
+Country_United Arab Emirates,0.0
+Country_Singapore,0.0
+Country_Saudi Arabia,0.0
+Country_RSA,0.0
+Country_Poland,0.0
+Country_Lebanon,0.0
+Country_Nigeria,0.0
+Country_Malta,0.0
+Country_Lithuania,0.0
+Country_Bahrain,0.0
+Country_Korea,0.0
+Country_Japan,0.0
+Country_Israel,0.0
+Country_Iceland,0.0
+Country_Greece,0.0
+Country_Finland,0.0
+Country_EIRE,0.0
+Country_Denmark,0.0
+Country_Czech Republic,0.0
+Country_West Indies,0.0

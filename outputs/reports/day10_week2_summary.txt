@@ -1,0 +1,67 @@
+
+VANTARA CUSTOMER INTELLIGENCE PLATFORM
+WEEK 2 CHECKPOINT SUMMARY
+=====================================
+
+CHURN CLASSIFICATION
+--------------------
+Total Models Compared: 6
+
+Recommended Overall Model:
+XGBoost
+
+Recommended Model Metrics:
+Accuracy  : 0.7507
+Precision : 0.7925
+Recall    : 0.8480
+F1 Score  : 0.8193
+ROC-AUC   : 0.7982
+
+Best ROC-AUC Model:
+Random Forest
+ROC-AUC: 0.8001
+
+Best Recall Model:
+XGBoost
+Recall: 0.8480
+
+
+CLV REGRESSION
+--------------
+Test MAE  : 444.26
+Test RMSE : 770.98
+Test R2   : 0.5883
+
+
+CUSTOMER SEGMENTATION
+---------------------
+Selected Model:
+K-Means
+
+Number of Clusters:
+7
+
+Silhouette Score:
+0.2954
+
+Davies-Bouldin Score:
+1.0336
+
+
+WEEK 2 STATUS
+-------------
+Completed:
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
+- LightGBM
+- SVM
+- CLV Regression
+- K-Means Clustering
+- Gaussian Mixture Model
+- Business-readable customer segments
+- Consolidated model comparison
+
+Next Phase:
+Week 3 - Deep Learning and Explainability

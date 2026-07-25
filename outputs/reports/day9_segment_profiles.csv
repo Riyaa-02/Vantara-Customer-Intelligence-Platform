@@ -1,0 +1,8 @@
+Customer_Segment,Customer_Count,Avg_Recency,Avg_Frequency,Avg_Monetary,Avg_Order_Value,Avg_Unique_Products,Avg_Purchase_Gap,Avg_Return_Rate,Avg_Engagement,Churn_Rate,Segment_Name
+0,196,165.03,3.85,4535.93,1305.76,82.96,43.35,1.1,25.99,0.65,High-Spend Occasional Customers
+1,1610,146.43,2.55,567.53,240.54,33.34,20.3,2.24,26.67,0.75,Developing Customers
+2,1199,60.7,10.7,2779.68,273.28,125.38,48.94,3.19,32.9,0.39,Loyal Regular Customers
+3,778,136.15,3.12,772.26,251.45,46.43,162.94,1.79,27.37,0.76,Irregular At-Risk Customers
+4,99,377.13,2.0,-843.75,-669.65,4.22,9.26,84.59,12.41,0.98,High-Return Lost Customers
+5,223,25.88,43.17,22904.41,534.49,304.63,16.62,3.63,39.92,0.08,Champions
+6,891,399.46,1.94,407.77,220.62,25.19,14.59,2.24,11.15,0.92,Dormant Customers

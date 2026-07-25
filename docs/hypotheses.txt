@@ -1,0 +1,16 @@
+
+HYPOTHESES FOR MACHINE LEARNING
+
+H1. Customers with high Recency are more likely to churn.
+
+H2. Customers with low Frequency are more likely to churn.
+
+H3. High Monetary customers deserve retention priority.
+
+H4. Return behaviour influences churn probability.
+
+H5. Seasonal shoppers behave differently from regular customers.
+
+H6. Customer location influences purchasing behaviour.
+
+H7. Purchase history can predict future customer value.

@@ -1,0 +1,42 @@
+# Vantara Customer Intelligence Platform - Config
+
+data:
+  raw_path: "data/raw/online_retail_II.xlsx"
+  interim_path: "data/interim/cleaned_data.csv"
+  processed_path: "data/processed/customer_features.csv"
+  train_path: "data/processed/train_scaled.csv"
+  val_path: "data/processed/validation_scaled.csv"
+  test_path: "data/processed/test_scaled.csv"
+
+modeling:
+  random_seed: 42
+  test_size: 0.15
+  val_size: 0.15
+  cutoff_date: "2011-06-01"
+  churn_window_days: 90
+  
+  # Success metrics
+  target_auc: 0.80
+  target_r2: 0.60
+  target_recall: 0.70
+
+features:
+  scale_cols:
+    - Recency
+    - Frequency
+    - Monetary_Total
+    - Monetary_Avg
+    - Avg_Basket_Size
+    - Purchase_Trend
+    - Purchase_Gap_Variance
+    - Seasonal_Concentration
+    - Return_Rate
+    - Price_Variance
+    - Customer_Lifespan_Days
+    - Historical_CLV
+    - Predicted_CLV
+
+paths:
+  models: "models_artifacts/"
+  docs: "docs/"
+  notebooks: "notebooks/"

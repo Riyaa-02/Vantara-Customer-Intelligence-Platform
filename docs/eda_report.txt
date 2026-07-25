@@ -1,0 +1,68 @@
+
+============================================================
+VANTARA CUSTOMER INTELLIGENCE PLATFORM
+EDA REPORT
+============================================================
+
+DATASET SUMMARY
+-----------------------
+Transactions : 797,815
+Customers    : 5,939
+Products     : 4,646
+Countries    : 41
+
+Date Range
+-----------------------
+2009-12-01 to 2011-12-09
+
+REVENUE
+-----------------------
+Total Revenue : £16,289,991.29
+
+Average Order : £20.42
+
+Median Order  : £11.70
+
+TOP COUNTRY
+-----------------------
+United Kingdom
+
+Revenue Share : 82.77%
+
+TOP CUSTOMER
+-----------------------
+Customer ID : 18102
+
+Revenue : £570,380.61
+
+TOP PRODUCT
+-----------------------
+REGENCY CAKESTAND 3 TIER
+
+Revenue : £261,110.95
+
+RETURNS
+-----------------------
+Transactions : 18,390
+
+Return Rate : 2.31%
+
+PEAK SALES MONTH
+-----------------------
+2010-11
+
+Revenue : £1,129,025.16
+
+BUSINESS INSIGHTS
+-----------------------
+1. Revenue is concentrated in a few countries.
+
+2. High-value customers contribute a significant portion of revenue.
+
+3. Sales show seasonal variation.
+
+4. Returns should be used as a predictive feature.
+
+5. Revenue distribution is highly skewed.
+
+6. Top-selling products should be prioritized for inventory planning.
