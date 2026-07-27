@@ -57,7 +57,7 @@ https://doi.org/10.24432/C5CG6D
 
 ---
 
-## Project Workflow
+## Development Workflow 
 
 The project was developed in multiple stages.
 
@@ -196,6 +196,15 @@ The project includes Explainable AI techniques to improve model transparency and
 - **Partial Dependence Plots** for analyzing the influence of important features.
 
 ---
+
+## Project Outcomes
+
+- Built an end-to-end customer analytics pipeline using the Online Retail II dataset.
+- Implemented customer segmentation using K-Means clustering.
+- Developed predictive models for customer churn and Customer Lifetime Value (CLV).
+- Applied SHAP and LIME to improve model interpretability.
+- Developed a FastAPI backend for model inference.
+- Built an interactive Streamlit dashboard for visualization.
 
 ## Future Improvements
 
