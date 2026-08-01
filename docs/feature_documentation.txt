@@ -10,10 +10,10 @@ Recency
 Days since customer's last purchase before cutoff date.
 
 Frequency
-Number of unique invoices placed by customer.
+Number of unique invoices placed.
 
 Monetary_Total
-Total historical revenue generated.
+Total historical revenue.
 
 Monetary_Average
 Average transaction value.
@@ -22,13 +22,13 @@ Average_Order_Value
 Average revenue per invoice.
 
 Total_Quantity
-Total items purchased.
+Total purchased quantity.
 
 Average_Basket_Size
-Average quantity purchased per transaction.
+Average quantity purchased.
 
 Unique_Products
-Number of distinct products purchased.
+Distinct purchased products.
 
 Average_Purchase_Gap
 Average days between purchases.
@@ -37,26 +37,25 @@ Customer_Lifespan_Days
 Days between first and last purchase.
 
 Country
-Most frequent purchasing country.
+Most frequent customer country.
 
 Return_Rate
-Percentage of returned transactions.
+Returned transaction percentage.
 
 Price_Sensitivity
-Variance of product prices purchased.
+Variance of purchased prices.
 
 Historical_Revenue
-Historical revenue before cutoff.
+Revenue before cutoff.
 
 Predicted_CLV
-Simple annualized estimate of customer value.
+Annualized customer value estimate.
 
 Engagement_Score
-Composite score based on Recency, Frequency and Monetary.
+Composite RFM score.
 
 Churn
-Target variable.
 
-1 = Customer did not purchase during next 90 days.
+1 = No purchase within 90 days.
 
-0 = Customer purchased again within 90 days.
+0 = Purchased again.

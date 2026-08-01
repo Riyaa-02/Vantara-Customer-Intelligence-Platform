@@ -7,9 +7,15 @@ DAY 16 : FASTAPI APPLICATION
 
 from fastapi import FastAPI
 
+from api.database.database import Base, engine
+from api.database import models
 from api.routers.health import router as health_router
 from api.routers.metadata import router as metadata_router
 from api.routers.prediction import router as prediction_router
+
+
+Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title="Vantara Customer Intelligence Platform",

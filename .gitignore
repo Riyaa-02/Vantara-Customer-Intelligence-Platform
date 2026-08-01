@@ -1,28 +1,78 @@
+# ==========================
 # Python
+# ==========================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Virtual Environment
 venv/
+.venv/
+
+# Environment Variables
 .env
+.env.*
 
-# Data (keep raw, ignore large processed if needed)
-# data/raw/online_retail_II.xlsx
-# data/interim/
-# data/processed/
+# ==========================
+# Coverage & Testing
+# ==========================
+.coverage
+.pytest_cache/
+htmlcov/
 
-# Models
-models_artifacts/*.pkl
-models_artifacts/*.h5
-
+# ==========================
 # Jupyter
+# ==========================
 .ipynb_checkpoints/
 
+# ==========================
 # IDE
+# ==========================
 .vscode/
 .idea/
 
+# ==========================
 # OS
+# ==========================
 .DS_Store
-Thumbs.dbdata/interim/cleaned_data.csv
+Thumbs.db
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+
+# ==========================
+# Temporary Files
+# ==========================
+batch_test.csv
+test_shap.py
+
+# ==========================
+# Data
+# ==========================
+
+# Keep original dataset optional
+# data/raw/online_retail_II.xlsx
+
+# Ignore temporary cleaned file
+data/interim/cleaned_data.csv
+
+# Ignore generated split datasets
+data/processed/train.csv
+data/processed/validation.csv
+data/processed/test.csv
+
+# ==========================
+# Models
+# ==========================
+
+# Keep trained models (required by dashboard/API)
+# models/
+
+# Ignore old artifact folder if unused
+models_artifacts/*.pkl
+models_artifacts/*.h5

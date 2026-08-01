@@ -5,335 +5,38 @@ DAY 4 - FEATURE ENGINEERING
 ==============================================================
 """
 
-import os
-import numpy as np
+from pathlib import Path
+
+from src.features.feature_engineering import build_feature_pipeline
+from src.features.churn import create_churn_labels
+from src.features.validation import validate_feature_pipeline
+from src.features.dataset_split import (
+    create_train_validation_test_split,
+)
+
 import pandas as pd
 
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
-
-print("=" * 70)
-print("DAY 4 : FEATURE ENGINEERING")
-print("=" * 70)
 
 # ------------------------------------------------------------
 # Configuration
 # ------------------------------------------------------------
 
-RANDOM_SEED = 42
-np.random.seed(RANDOM_SEED)
+INPUT_FILE = Path("data/interim/cleaned_data.csv")
 
-os.makedirs("data/processed", exist_ok=True)
-os.makedirs("docs", exist_ok=True)
+OUTPUT_DIR = Path("data/processed")
 
-# ------------------------------------------------------------
-# Load cleaned dataset
-# ------------------------------------------------------------
+DOCS_DIR = Path("docs")
 
-df = pd.read_csv("data/interim/cleaned_data.csv")
-
-df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
-df["Total"] = df["Quantity"] * df["Price"]
-
-print(f"\nLoaded {len(df):,} transactions")
-
-# ------------------------------------------------------------
-# Churn Definition
-# ------------------------------------------------------------
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
 CUTOFF_DATE = pd.Timestamp("2011-06-01")
 FUTURE_WINDOW = 90
 
-print("\nCutoff Date :", CUTOFF_DATE.date())
-print("Future Window :", FUTURE_WINDOW, "days")
 
-df_before = df[df["InvoiceDate"] < CUTOFF_DATE].copy()
-df_after = df[df["InvoiceDate"] >= CUTOFF_DATE].copy()
+def save_feature_documentation():
 
-print(f"Historical Transactions : {len(df_before):,}")
-print(f"Future Transactions     : {len(df_after):,}")
-
-customers = df_before.groupby("Customer ID")
-
-features = pd.DataFrame(index=customers.size().index)
-features.index.name = "Customer ID"
-
-print("\nBuilding customer features...")
-
-# ============================================================
-# RFM FEATURES
-# ============================================================
-
-print("Creating RFM Features...")
-
-last_purchase = customers["InvoiceDate"].max()
-
-features["Recency"] = (
-    CUTOFF_DATE - last_purchase
-).dt.days
-
-features["Frequency"] = customers["Invoice"].nunique()
-
-features["Monetary_Total"] = customers["Total"].sum()
-
-features["Monetary_Average"] = customers["Total"].mean()
-
-# ============================================================
-# PURCHASE FEATURES
-# ============================================================
-
-print("Creating Purchase Features...")
-
-features["Total_Quantity"] = customers["Quantity"].sum()
-
-features["Average_Basket_Size"] = customers["Quantity"].mean()
-
-features["Average_Order_Value"] = (
-    features["Monetary_Total"] /
-    features["Frequency"]
-)
-
-features["Unique_Products"] = (
-    customers["StockCode"]
-    .nunique()
-)
-
-# ------------------------------------------------------------
-# Average Purchase Gap
-# ------------------------------------------------------------
-
-def average_gap(group):
-
-    dates = (
-        group["InvoiceDate"]
-        .sort_values()
-        .drop_duplicates()
-    )
-
-    if len(dates) < 2:
-        return 0
-
-    gaps = dates.diff().dt.days.dropna()
-
-    return gaps.mean()
-
-features["Average_Purchase_Gap"] = (
-    df_before
-    .groupby("Customer ID")
-    .apply(average_gap, include_groups=False)
-)
-
-# ============================================================
-# CUSTOMER PROFILE
-# ============================================================
-
-print("Creating Customer Profile...")
-
-first_purchase = customers["InvoiceDate"].min()
-
-last_purchase = customers["InvoiceDate"].max()
-
-features["Customer_Lifespan_Days"] = (
-    last_purchase -
-    first_purchase
-).dt.days
-
-features["Country"] = (
-    customers["Country"]
-    .agg(lambda x: x.mode().iloc[0])
-)
-
-# ============================================================
-# RETURN FEATURES
-# ============================================================
-
-print("Creating Return Features...")
-
-total_transactions = customers.size()
-
-returned = (
-    df_before[df_before["Quantity"] < 0]
-    .groupby("Customer ID")
-    .size()
-)
-
-features["Return_Rate"] = (
-    returned /
-    total_transactions *
-    100
-).fillna(0)
-
-# ============================================================
-# PRICE SENSITIVITY
-# ============================================================
-
-features["Price_Sensitivity"] = (
-    customers["Price"]
-    .var()
-    .fillna(0)
-)
-
-# ============================================================
-# REVENUE FEATURES
-# ============================================================
-
-features["Historical_Revenue"] = (
-    features["Monetary_Total"]
-)
-
-daily_value = (
-    features["Historical_Revenue"] /
-    (features["Customer_Lifespan_Days"] + 1)
-)
-
-features["Predicted_CLV"] = (
-    daily_value * 365
-)
-
-clip_value = (
-    features["Predicted_CLV"]
-    .quantile(0.99)
-)
-
-features["Predicted_CLV"] = (
-    features["Predicted_CLV"]
-    .clip(upper=clip_value)
-)
-
-# ============================================================
-# ENGAGEMENT SCORE
-# ============================================================
-
-print("Creating Engagement Score...")
-
-rfm = features[
-    [
-        "Recency",
-        "Frequency",
-        "Monetary_Total"
-    ]
-].copy()
-
-rfm["Recency"] = (
-    rfm["Recency"].max()
-    - rfm["Recency"]
-)
-
-scaler = MinMaxScaler(
-    feature_range=(0,100)
-)
-
-scaled = scaler.fit_transform(rfm)
-
-features["Engagement_Score"] = (
-    scaled.mean(axis=1)
-)
-# ============================================================
-# CHURN LABEL CREATION
-# ============================================================
-
-print("\n" + "=" * 70)
-print("CREATING CHURN LABEL")
-print("=" * 70)
-
-active_window_end = CUTOFF_DATE + pd.Timedelta(days=90)
-
-future_customers = (
-    df_after[
-        df_after["InvoiceDate"] <= active_window_end
-    ]["Customer ID"]
-    .unique()
-)
-
-features["Churn"] = (
-    ~features.index.isin(future_customers)
-).astype(int)
-
-print(f"Customers : {len(features):,}")
-print(f"Churned   : {features['Churn'].sum():,}")
-print(f"Active    : {(features['Churn']==0).sum():,}")
-print(f"Churn Rate: {features['Churn'].mean()*100:.2f}%")
-
-# ============================================================
-# LEAKAGE CHECKS
-# ============================================================
-
-print("\n" + "=" * 70)
-print("LEAKAGE VALIDATION")
-print("=" * 70)
-
-assert df_before["InvoiceDate"].max() < CUTOFF_DATE
-print("PASS : Historical features use only past data")
-
-assert (
-    df_after[
-        df_after["InvoiceDate"] <= active_window_end
-    ]["InvoiceDate"].min()
-    >= CUTOFF_DATE
-)
-print("PASS : Churn labels use future window only")
-
-assert features["Recency"].min() >= 0
-print("PASS : Recency values are valid")
-
-# ============================================================
-# TRAIN / VALIDATION / TEST SPLIT
-# ============================================================
-
-print("\n" + "=" * 70)
-print("TRAIN / VALIDATION / TEST SPLIT")
-print("=" * 70)
-
-X = features.drop(columns=["Churn"])
-y = features["Churn"]
-
-X_train, X_temp, y_train, y_temp = train_test_split(
-    X,
-    y,
-    test_size=0.30,
-    random_state=RANDOM_SEED,
-    stratify=y
-)
-
-X_val, X_test, y_val, y_test = train_test_split(
-    X_temp,
-    y_temp,
-    test_size=0.50,
-    random_state=RANDOM_SEED,
-    stratify=y_temp
-)
-
-train = pd.concat([X_train, y_train], axis=1)
-validation = pd.concat([X_val, y_val], axis=1)
-test = pd.concat([X_test, y_test], axis=1)
-
-# ============================================================
-# SAVE FILES
-# ============================================================
-
-features.to_csv(
-    "data/processed/customer_features.csv"
-)
-
-train.to_csv(
-    "data/processed/train.csv"
-)
-
-validation.to_csv(
-    "data/processed/validation.csv"
-)
-
-test.to_csv(
-    "data/processed/test.csv"
-)
-
-print("\nDatasets Saved Successfully")
-
-# ============================================================
-# FEATURE DOCUMENTATION
-# ============================================================
-
-documentation = """
+    documentation = """
 VANTARA CUSTOMER INTELLIGENCE PLATFORM
 
 FEATURE DOCUMENTATION
@@ -345,10 +48,10 @@ Recency
 Days since customer's last purchase before cutoff date.
 
 Frequency
-Number of unique invoices placed by customer.
+Number of unique invoices placed.
 
 Monetary_Total
-Total historical revenue generated.
+Total historical revenue.
 
 Monetary_Average
 Average transaction value.
@@ -357,13 +60,13 @@ Average_Order_Value
 Average revenue per invoice.
 
 Total_Quantity
-Total items purchased.
+Total purchased quantity.
 
 Average_Basket_Size
-Average quantity purchased per transaction.
+Average quantity purchased.
 
 Unique_Products
-Number of distinct products purchased.
+Distinct purchased products.
 
 Average_Purchase_Gap
 Average days between purchases.
@@ -372,63 +75,110 @@ Customer_Lifespan_Days
 Days between first and last purchase.
 
 Country
-Most frequent purchasing country.
+Most frequent customer country.
 
 Return_Rate
-Percentage of returned transactions.
+Returned transaction percentage.
 
 Price_Sensitivity
-Variance of product prices purchased.
+Variance of purchased prices.
 
 Historical_Revenue
-Historical revenue before cutoff.
+Revenue before cutoff.
 
 Predicted_CLV
-Simple annualized estimate of customer value.
+Annualized customer value estimate.
 
 Engagement_Score
-Composite score based on Recency, Frequency and Monetary.
+Composite RFM score.
 
 Churn
-Target variable.
 
-1 = Customer did not purchase during next 90 days.
+1 = No purchase within 90 days.
 
-0 = Customer purchased again within 90 days.
+0 = Purchased again.
 """
 
-with open(
-    "docs/feature_documentation.txt",
-    "w",
-    encoding="utf-8"
-) as f:
-    f.write(documentation)
+    with open(
+        DOCS_DIR / "feature_documentation.txt",
+        "w",
+        encoding="utf-8",
+    ) as f:
+        f.write(documentation)
 
-print("Feature documentation saved.")
 
-# ============================================================
-# SUMMARY
-# ============================================================
+def main():
 
-print("\n" + "=" * 70)
-print("FEATURE SUMMARY")
-print("=" * 70)
+    print("=" * 70)
+    print("DAY 4 : FEATURE ENGINEERING")
+    print("=" * 70)
 
-print(features.describe())
+    print("\nBuilding customer features...")
 
-print("\nFeature Columns")
+    features, historical_df, future_df = (
+        build_feature_pipeline(
+            INPUT_FILE,
+            cutoff_date=CUTOFF_DATE,
+        )
+    )
 
-for col in features.columns:
-    print("-", col)
+    print("Creating churn labels...")
 
-print("\n" + "=" * 70)
-print("DAY 4 COMPLETED SUCCESSFULLY")
-print("=" * 70)
+    features = create_churn_labels(
+        customer_features=features,
+        future_transactions=future_df,
+        cutoff_date=CUTOFF_DATE,
+        future_window_days=FUTURE_WINDOW,
+    )
 
-print("\nGenerated Files")
+    print("Running validation...")
 
-print("data/processed/customer_features.csv")
-print("data/processed/train.csv")
-print("data/processed/validation.csv")
-print("data/processed/test.csv")
-print("docs/feature_documentation.txt")
+    validate_feature_pipeline(
+        historical_df=historical_df,
+        future_df=future_df,
+        features=features,
+        cutoff_date=CUTOFF_DATE,
+        future_window_days=FUTURE_WINDOW,
+    )
+
+    print("Creating train / validation / test split...")
+
+    train, validation, test = (
+        create_train_validation_test_split(
+            features
+        )
+    )
+
+    print("Saving datasets...")
+
+    features.to_csv(
+        OUTPUT_DIR / "customer_features.csv"
+    )
+
+    train.to_csv(
+        OUTPUT_DIR / "train.csv"
+    )
+
+    validation.to_csv(
+        OUTPUT_DIR / "validation.csv"
+    )
+
+    test.to_csv(
+        OUTPUT_DIR / "test.csv"
+    )
+
+    save_feature_documentation()
+
+    print("\nDatasets Saved Successfully")
+
+    print("\nCustomer Feature Shape :", features.shape)
+
+    print("Train :", train.shape)
+    print("Validation :", validation.shape)
+    print("Test :", test.shape)
+
+    print("\nDAY 4 COMPLETED SUCCESSFULLY")
+
+
+if __name__ == "__main__":
+    main()

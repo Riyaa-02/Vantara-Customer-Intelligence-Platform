@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.gitignore
+.env
+logs/
+outputs/
+.ipynb_checkpoints/
+.pytest_cache/
+.streamlit/

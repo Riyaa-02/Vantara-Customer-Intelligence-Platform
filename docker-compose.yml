@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: vantara_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vantara_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: vantara_api
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/vantara_db
+    ports:
+      - "8000:8000"
+
+  dashboard:
+    build: .
+    container_name: vantara_dashboard
+    restart: always
+    depends_on:
+      - api
+    environment:
+      API_BASE_URL: http://api:8000
+    command: streamlit run frontend/dashboard.py --server.address=0.0.0.0 --server.port=8501
+    ports:
+      - "8501:8501"
+
+volumes:
+  postgres_data:
