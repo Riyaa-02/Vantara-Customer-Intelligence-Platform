@@ -9,7 +9,14 @@ Purpose:
 Output:
     data/raw/online_retail_ii_combined.csv
 """
+import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+
+logger = logging.getLogger(__name__)
 from pathlib import Path
 import pandas as pd
 
@@ -36,7 +43,7 @@ def combine_datasets() -> pd.DataFrame:
     """
     Load and combine both yearly datasets.
     """
-    print("Loading Online Retail II dataset...")
+    logger.info("Loading Online Retail II dataset...")
 
     dataframes = [load_sheet(RAW_DATA_PATH, sheet) for sheet in SHEETS]
 
@@ -64,15 +71,13 @@ def main() -> None:
 
     save_dataset(df)
 
-    print("\nDataset Successfully Combined!")
-    print(f"Total Rows      : {len(df):,}")
-    print(f"Total Columns   : {len(df.columns)}")
-    print(f"Saved File      : {OUTPUT_PATH}")
+    logger.info("Total Columns: %s", len(df.columns))
+    logger.info("Saved File: %s", OUTPUT_PATH)
 
-    print("\nColumns:")
+    logger.info("Columns:")
     for col in df.columns:
-        print(f" - {col}")
+        logger.info(" - %s", col)
 
 
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()

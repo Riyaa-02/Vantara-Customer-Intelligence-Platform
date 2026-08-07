@@ -76,3 +76,36 @@ data/processed/test.csv
 # Ignore old artifact folder if unused
 models_artifacts/*.pkl
 models_artifacts/*.h5
+# =========================
+# Local / private files
+# =========================
+.env
+.env.*
+venv/
+.venv/
+logs/
+
+# =========================
+# Python generated files
+# =========================
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# IDE / OS files
+# =========================
+.vscode/
+.idea/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# =========================
+# Local databases
+# =========================
+*.db
+*.sqlite
+*.sqlite3

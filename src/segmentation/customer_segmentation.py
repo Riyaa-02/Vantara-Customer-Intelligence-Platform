@@ -1,9 +1,15 @@
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-import joblib
-import os
+import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+
+logger = logging.getLogger(__name__)
+import joblib
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
 
 # Paths
 DATA_PATH = "data/processed/customer_features.csv"
@@ -13,7 +19,7 @@ OUTPUT_PATH = "data/final/customer_segments.csv"
 # Load customer data
 df = pd.read_csv(DATA_PATH)
 
-print("Dataset loaded:", df.shape)
+logger.info("Dataset loaded: %s", df.shape)
 
 
 # Features for segmentation
@@ -68,7 +74,7 @@ df.to_csv(
 )
 
 
-print("\nCustomer segmentation completed!")
+logger.info("\nCustomer segmentation completed!")
 
-print("\nCluster distribution:")
-print(df["Customer_Segment"].value_counts())
+logger.info("Cluster distribution:")
+logger.info(df["Customer_Segment"].value_counts())

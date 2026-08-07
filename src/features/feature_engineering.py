@@ -11,7 +11,6 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-
 DEFAULT_CUTOFF_DATE = pd.Timestamp("2011-06-01")
 
 

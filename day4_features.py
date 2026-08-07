@@ -1,40 +1,66 @@
 """
-==============================================================
-VANTARA CUSTOMER INTELLIGENCE PLATFORM
-DAY 4 - FEATURE ENGINEERING
-==============================================================
+Day 4 - Feature Engineering
 """
 
+import logging
 from pathlib import Path
 
-from src.features.feature_engineering import build_feature_pipeline
+import pandas as pd
+
 from src.features.churn import create_churn_labels
-from src.features.validation import validate_feature_pipeline
 from src.features.dataset_split import (
     create_train_validation_test_split,
 )
+from src.features.feature_engineering import (
+    build_feature_pipeline,
+)
+from src.features.validation import (
+    validate_feature_pipeline,
+)
 
-import pandas as pd
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+
+logger = logging.getLogger(__name__)
 
 
 # ------------------------------------------------------------
 # Configuration
 # ------------------------------------------------------------
 
-INPUT_FILE = Path("data/interim/cleaned_data.csv")
+INPUT_FILE = Path(
+    "data/interim/cleaned_data.csv"
+)
 
-OUTPUT_DIR = Path("data/processed")
+OUTPUT_DIR = Path(
+    "data/processed"
+)
 
-DOCS_DIR = Path("docs")
+DOCS_DIR = Path(
+    "docs"
+)
 
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-DOCS_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR.mkdir(
+    parents=True,
+    exist_ok=True,
+)
 
-CUTOFF_DATE = pd.Timestamp("2011-06-01")
+DOCS_DIR.mkdir(
+    parents=True,
+    exist_ok=True,
+)
+
+CUTOFF_DATE = pd.Timestamp(
+    "2011-06-01"
+)
+
 FUTURE_WINDOW = 90
 
 
-def save_feature_documentation():
+def save_feature_documentation() -> None:
+    """Save documentation describing engineered features."""
 
     documentation = """
 VANTARA CUSTOMER INTELLIGENCE PLATFORM
@@ -93,9 +119,7 @@ Engagement_Score
 Composite RFM score.
 
 Churn
-
 1 = No purchase within 90 days.
-
 0 = Purchased again.
 """
 
@@ -103,17 +127,20 @@ Churn
         DOCS_DIR / "feature_documentation.txt",
         "w",
         encoding="utf-8",
-    ) as f:
-        f.write(documentation)
+    ) as file:
+        file.write(documentation)
 
 
-def main():
+def main() -> None:
+    """Run feature engineering, validation, splitting and saving."""
 
-    print("=" * 70)
-    print("DAY 4 : FEATURE ENGINEERING")
-    print("=" * 70)
+    logger.info("=" * 70)
+    logger.info("DAY 4 : FEATURE ENGINEERING")
+    logger.info("=" * 70)
 
-    print("\nBuilding customer features...")
+    logger.info(
+        "Building customer features..."
+    )
 
     features, historical_df, future_df = (
         build_feature_pipeline(
@@ -122,7 +149,9 @@ def main():
         )
     )
 
-    print("Creating churn labels...")
+    logger.info(
+        "Creating churn labels..."
+    )
 
     features = create_churn_labels(
         customer_features=features,
@@ -131,7 +160,9 @@ def main():
         future_window_days=FUTURE_WINDOW,
     )
 
-    print("Running validation...")
+    logger.info(
+        "Running validation..."
+    )
 
     validate_feature_pipeline(
         historical_df=historical_df,
@@ -141,7 +172,9 @@ def main():
         future_window_days=FUTURE_WINDOW,
     )
 
-    print("Creating train / validation / test split...")
+    logger.info(
+        "Creating train / validation / test split..."
+    )
 
     train, validation, test = (
         create_train_validation_test_split(
@@ -149,35 +182,59 @@ def main():
         )
     )
 
-    print("Saving datasets...")
+    logger.info(
+        "Saving datasets..."
+    )
 
     features.to_csv(
-        OUTPUT_DIR / "customer_features.csv"
+        OUTPUT_DIR / "customer_features.csv",
+        index=False,
     )
 
     train.to_csv(
-        OUTPUT_DIR / "train.csv"
+        OUTPUT_DIR / "train.csv",
+        index=False,
     )
 
     validation.to_csv(
-        OUTPUT_DIR / "validation.csv"
+        OUTPUT_DIR / "validation.csv",
+        index=False,
     )
 
     test.to_csv(
-        OUTPUT_DIR / "test.csv"
+        OUTPUT_DIR / "test.csv",
+        index=False,
     )
 
     save_feature_documentation()
 
-    print("\nDatasets Saved Successfully")
+    logger.info(
+        "Datasets saved successfully."
+    )
 
-    print("\nCustomer Feature Shape :", features.shape)
+    logger.info(
+        "Customer Feature Shape: %s",
+        features.shape,
+    )
 
-    print("Train :", train.shape)
-    print("Validation :", validation.shape)
-    print("Test :", test.shape)
+    logger.info(
+        "Train: %s",
+        train.shape,
+    )
 
-    print("\nDAY 4 COMPLETED SUCCESSFULLY")
+    logger.info(
+        "Validation: %s",
+        validation.shape,
+    )
+
+    logger.info(
+        "Test: %s",
+        test.shape,
+    )
+
+    logger.info(
+        "DAY 4 COMPLETED SUCCESSFULLY"
+    )
 
 
 if __name__ == "__main__":

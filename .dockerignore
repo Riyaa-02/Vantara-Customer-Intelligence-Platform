@@ -10,4 +10,3 @@ logs/
 outputs/
 .ipynb_checkpoints/
 .pytest_cache/
-.streamlit/

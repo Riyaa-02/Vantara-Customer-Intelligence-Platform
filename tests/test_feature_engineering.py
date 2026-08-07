@@ -1,8 +1,8 @@
 import pandas as pd
 
 from src.features.feature_engineering import (
-    create_rfm_features,
     create_return_features,
+    create_rfm_features,
 )
 
 

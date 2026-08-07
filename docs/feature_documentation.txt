@@ -55,7 +55,5 @@ Engagement_Score
 Composite RFM score.
 
 Churn
-
 1 = No purchase within 90 days.
-
 0 = Purchased again.

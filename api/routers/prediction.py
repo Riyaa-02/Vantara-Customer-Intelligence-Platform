@@ -22,7 +22,6 @@ from api.schemas.response_schema import (
 from src.explainability.shap_explainer import explain_customer
 from src.models.ann_service import score_customer
 
-
 router = APIRouter(tags=["Prediction"])
 
 
@@ -81,7 +80,7 @@ def predict_churn(
 
         raise HTTPException(
             status_code=500,
-            detail=f"Prediction failed: {str(error)}",
+            detail=f"Prediction failed: {error!s}",
         ) from error
 
 
@@ -165,7 +164,7 @@ def predict_churn_with_explanation(
             status_code=500,
             detail=(
                 "Prediction explanation failed: "
-                f"{str(error)}"
+                f"{error!s}"
             ),
         ) from error
 
@@ -214,7 +213,7 @@ async def predict_churn_batch(
         except Exception as error:
             raise HTTPException(
                 status_code=400,
-                detail=f"Unable to read CSV file: {str(error)}",
+                detail=f"Unable to read CSV file: {error!s}",
             ) from error
 
         if dataframe.empty:
@@ -324,7 +323,7 @@ async def predict_churn_batch(
 
                 row_errors.append(
                     f"Row {row_number + 2}: "
-                    f"{str(error)}"
+                    f"{error!s}"
                 )
 
             except HTTPException as error:
@@ -344,7 +343,7 @@ async def predict_churn_batch(
 
                 row_errors.append(
                     f"Row {row_number + 2}: "
-                    f"{str(error)}"
+                    f"{error!s}"
                 )
 
         if database_records:
@@ -400,7 +399,7 @@ async def predict_churn_batch(
             status_code=500,
             detail=(
                 "Batch prediction failed: "
-                f"{str(error)}"
+                f"{error!s}"
             ),
         ) from error
 
